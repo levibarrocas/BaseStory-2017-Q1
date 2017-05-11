@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-public class DemoPersonagem : MonoBehaviour {
-   [SerializeField]
-
-    int slot;
+public class DemoTeam : MonoBehaviour
+{
     [SerializeField]
-    GeradorPersonagem GP;
+    int slot;
     [SerializeField]
     Text TX;
     Button BTN;
     [SerializeField]
     VisualizadorPersonagem VP;
+    [SerializeField]
+    CharacterManager CM;
 
     private void Start()
     {
@@ -22,12 +21,20 @@ public class DemoPersonagem : MonoBehaviour {
         BTN.onClick.AddListener(OnClick);
     }
 
-    void Update () {
-        TX.text = GP.Personagems[slot].Nome(true);
-	}
+    void Update()
+    {
+        if (CM.Funcionarios.Count >= slot + 1)
+        {
+            TX.text = CM.Funcionarios[slot].Nome(true);
+        }
+        else
+        {
+            TX.text = "Vazio";
+        }
+    }
 
     void OnClick()
     {
-        VP.MostrarPersonagem(GP.Personagems[slot]);
+        VP.MostrarPersonagem(CM.Funcionarios[slot]);
     }
 }

@@ -19,7 +19,7 @@ public class GeradorPersonagem : MonoBehaviour {
     private void Start()
     {
 
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < 30; i++)
         {
             Personagems.Add(CriarPersonagemAleatorio(i));
         }
