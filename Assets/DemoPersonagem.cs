@@ -5,8 +5,7 @@ using UnityEngine.UI;
 
 
 public class DemoPersonagem : MonoBehaviour {
-   [SerializeField]
-
+    [SerializeField]
     int slot;
     [SerializeField]
     GeradorPersonagem GP;

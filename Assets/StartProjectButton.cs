@@ -9,19 +9,22 @@ public class StartProjectButton : MonoBehaviour {
     [SerializeField]
     InputField INP;
     [SerializeField]
-    CharacterManager CM;
+    Dropdown DRP;
+    [SerializeField]
+    int Slot = 200;
 	// Use this for initialization
 	void Start () {
         BTN = GetComponent<Button>();
         BTN.onClick.AddListener(OnClick);
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void SetSlot(int I)
+    {
+        Slot = I;
+    }
+
     void OnClick()
     {
-        CM.StartProject(INP.text);
+        ProjectManager.PM.StartProject(INP.text, Slot, DRP.value);
     }
 }

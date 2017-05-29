@@ -4,65 +4,45 @@ using UnityEngine;
 
 public class CharacterManager : MonoBehaviour {
 
-    GeradorPersonagem GP;
 
     [SerializeField]
     public List<Personagem> Funcionarios = new List<Personagem>();
-    [SerializeField]
-    public List<Projeto> ProjetosCompletos = new List<Projeto>();
-    public Projeto ProjetoAtivo;
 
+    public static CharacterManager CM;
 
-    public float ProjectProgress;
-    public float TimeToComplete;
-    bool ProjectActive;
-
-    // Use this for initialization
-    void Start() {
-        GP = GetComponent<GeradorPersonagem>();
+    private void Awake()
+    {
+        if (CM == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            CM = this;
+        }
+        else if (CM != this)
+        {
+            Destroy(gameObject);
+        }
     }
-
     public void AddRandomCharacter()
     {
-        Funcionarios.Add(GP.CriarPersonagemAleatorio());
+        Funcionarios.Add(GeradorPersonagem.GP.CriarPersonagemAleatorio());
     }
 
     public void StartProject()
     {
-        if (!ProjectActive)
-        {
-            ProjectActive = true;
-            ProjetoAtivo = new Projeto();
-        }
+
+        ProjectManager.PM.StartProject();
     }
 
     public void StartProject(string Nome)
     {
-        if (!ProjectActive)
-        {
-            ProjectActive = true;
-            ProjetoAtivo = new Projeto();
-            ProjetoAtivo.Nome = Nome;
-        }
+        ProjectManager.PM.StartProject(Nome);
     }
 
     // Update is called once per frame
     void Update () {
-        if (ProjectActive)
+        for (int i = 0; i < Funcionarios.Count; i++)
         {
-            ProjectProgress += Time.deltaTime;
-            for(int i = 0;i < Funcionarios.Count; i++)
-            {
-                ProjetoAtivo.Qualidade1 += Funcionarios[i].Habilidade1;
-                ProjetoAtivo.Qualidade2 += Funcionarios[i].Habilidade2;
-                ProjetoAtivo.Qualidade3 += Funcionarios[i].Habilidade3;
-            }
-            if(ProjectProgress >= TimeToComplete)
-            {
-                ProjetosCompletos.Add(ProjetoAtivo);
-                ProjectActive = false;
-                ProjectProgress = 0;
-            }
+            Funcionarios[i].PassTime();
         }
 	}
 }

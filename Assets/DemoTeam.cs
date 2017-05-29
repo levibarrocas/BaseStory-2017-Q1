@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class DemoTeam : MonoBehaviour
 {
     [SerializeField]
+    bool ShowCharacter;
+    [SerializeField]
     int slot;
     [SerializeField]
     Text TX;
@@ -23,18 +25,23 @@ public class DemoTeam : MonoBehaviour
 
     void Update()
     {
-        if (CM.Funcionarios.Count >= slot + 1)
+        if (CharacterManager.CM.Funcionarios.Count >= slot + 1)
         {
+            BTN.interactable = true;
             TX.text = CM.Funcionarios[slot].Nome(true);
         }
         else
         {
-            TX.text = "Vazio";
+            TX.text = "Slot Vazio";
+            BTN.interactable = false;
         }
     }
 
     void OnClick()
     {
-        VP.MostrarPersonagem(CM.Funcionarios[slot]);
+        if (ShowCharacter)
+        {
+            VP.MostrarPersonagem(CM.Funcionarios[slot]);
+        }
     }
 }

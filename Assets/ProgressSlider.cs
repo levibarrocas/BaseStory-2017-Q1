@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class ProgressSlider : MonoBehaviour {
 
     Slider SLI;
-    [SerializeField]
-    CharacterManager CM;
 
 	// Use this for initialization
 	void Start () {
@@ -15,7 +13,7 @@ public class ProgressSlider : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        SLI.maxValue = CM.TimeToComplete;
-        SLI.value = CM.ProjectProgress;
+        SLI.maxValue = ProjectManager.PM.TimeToComplete;
+        SLI.value = ProjectManager.PM.ProjectProgress;
 	}
 }
